@@ -5,8 +5,7 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Timestamp } from 'btodo-utils';
-import Long from 'long';
+import { transformgRPCToData } from 'btodo-utils';
 import { map, Observable } from 'rxjs';
 import { BaseResponse } from '../dto/response.dto';
 
@@ -26,34 +25,7 @@ export class GrpcDataTransformInterceptor implements NestInterceptor {
   private processResponse(data: any) {
     return {
       statusCode: HttpStatus.OK,
-      message: this.transformData(data),
+      message: transformgRPCToData(data),
     };
-  }
-
-  private transformData(value: any) {
-    if (Array.isArray(value)) {
-      return value.map((item) => this.transformValue(item));
-    }
-    return this.transformValue(value);
-  }
-
-  private transformValue(value: any) {
-    if (value && value.second) {
-      return new Timestamp(value.second).toDate();
-    }
-
-    if (Long.isLong(value)) {
-      return value.toNumber();
-    }
-
-    if (typeof value === 'object') {
-      const transformed: any = {};
-      for (const key of Object.keys(value)) {
-        transformed[key] = this.transformValue(value[key]);
-      }
-      return transformed;
-    }
-
-    return value;
   }
 }
