@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { ClientMicroserviceModule } from './common/module/client-microservice-module.module';
 import { ConfigModule } from '@nestjs/config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import * as Joi from 'joi';
+import { LoggerModule } from 'nestjs-pino';
+import { AuthModule } from './auth/auth.module';
+import { GrpcDataTransformInterceptor } from './common/interceptors/grpc-data-transform-interceptor.interceptor';
+import { ClientMicroserviceModule } from './common/module/client-microservice-module.module';
 
 @Module({
   imports: [
@@ -20,10 +21,22 @@ import * as Joi from 'joi';
         GRPC_AUTH_PROTO_PATH: Joi.string().required(),
       }),
     }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: 'pino-pretty',
+        },
+      },
+    }),
     ClientMicroserviceModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: GrpcDataTransformInterceptor,
+    },
+  ],
 })
 export class AppModule {}

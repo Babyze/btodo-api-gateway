@@ -18,15 +18,16 @@ export class GrpcDataTransformInterceptor implements NestInterceptor {
   ): Observable<BaseResponse> | Promise<Observable<BaseResponse>> {
     const response = context.switchToHttp().getResponse();
     response.status(HttpStatus.OK);
+    return next
+      .handle()
+      .pipe(map((data: any): BaseResponse => this.processResponse(data)));
+  }
 
-    return next.handle().pipe(
-      map((data: any): BaseResponse => {
-        return {
-          statusCode: HttpStatus.OK,
-          message: this.transformData(data),
-        };
-      }),
-    );
+  private processResponse(data: any) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: this.transformData(data),
+    };
   }
 
   private transformData(value: any) {
