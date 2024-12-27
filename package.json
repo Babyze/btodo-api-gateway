@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "proto:install": "npm i https://github.com/Babyze/btodo-proto.git",
-    "proto:compile": "grpc_tools_node_protoc -I=node_modules/btodo-proto --plugin=./node_modules/.bin./protoc-gen-ts_proto.cmd --ts_proto_out=./src/pb --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb ./node_modules/btodo-proto/*.proto",
+    "proto:compile": "grpc_tools_node_protoc -I=node_modules/btodo-proto --plugin=./node_modules/.bin./protoc-gen-ts_proto.cmd --ts_proto_out=./src/common/pb --ts_proto_opt=nestJs=true --ts_proto_opt=fileSuffix=.pb ./node_modules/btodo-proto/*.proto",
     "utils:install": "npm i github:Babyze/btodo-utils",
     "install-all": "npm run proto:install && npm run proto:compile && npm run utils:install && npm install"
   },
