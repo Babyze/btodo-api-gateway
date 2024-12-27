@@ -29,8 +29,6 @@ export class AuthService {
   }
 
   async findAccount(payload: FindAccountRequestDto) {
-    console.log(payload);
-
     return httpCatchErrorOrDone(this.accountServiceClient.findAccount(payload));
   }
 
