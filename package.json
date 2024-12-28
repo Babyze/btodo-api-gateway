@@ -31,6 +31,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/microservices": "^10.4.15",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^8.1.0",
     "btodo-proto": "github:Babyze/btodo-proto",
     "btodo-utils": "github:Babyze/btodo-utils",
     "class-transformer": "^0.5.1",
