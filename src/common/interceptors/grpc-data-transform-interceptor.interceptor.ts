@@ -1,7 +1,6 @@
 import {
   CallHandler,
   ExecutionContext,
-  HttpStatus,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
@@ -15,16 +14,18 @@ export class GrpcDataTransformInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<BaseResponse> | Promise<Observable<BaseResponse>> {
-    const response = context.switchToHttp().getResponse();
-    response.status(HttpStatus.OK);
     return next
       .handle()
-      .pipe(map((data: any): BaseResponse => this.processResponse(data)));
+      .pipe(
+        map((data: any): BaseResponse => this.processResponse(context, data)),
+      );
   }
 
-  private processResponse(data: any) {
+  private processResponse(context: ExecutionContext, data: any) {
+    const response = context.switchToHttp().getResponse();
+
     return {
-      statusCode: HttpStatus.OK,
+      statusCode: response.statusCode,
       message: transformgRPCToData(data),
     };
   }
