@@ -3,6 +3,10 @@ import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SignInRequestDto, SignInResponseDto } from './dto/sign-in.dto';
 import { SignUpRequestDto, SignUpResponseDto } from './dto/sign-up.dto';
+import {
+  RefreshTokenRequestDto,
+  RefreshTokenResponseDto,
+} from './dto/refresh-token.dto';
 
 @ApiTags('Authentication')
 @Controller('/auth')
@@ -17,5 +21,12 @@ export class AuthController {
   @Post('/sign-in')
   signIn(@Body() payload: SignInRequestDto): Promise<SignInResponseDto> {
     return this.authService.signIn(payload);
+  }
+
+  @Post('/refresh-token')
+  refreshToken(
+    @Body() payload: RefreshTokenRequestDto,
+  ): Promise<RefreshTokenResponseDto> {
+    return this.authService.refreshToken(payload);
   }
 }

@@ -10,6 +10,10 @@ import { FindAccountRequestDto } from './dto/find-account.dto';
 import { SignInRequestDto } from './dto/sign-in.dto';
 import { SignUpRequestDto, SignUpResponseDto } from './dto/sign-up.dto';
 import { VerifyRequestDto, VerifyResponseDto } from './dto/verify.dto';
+import {
+  RefreshTokenRequestDto,
+  RefreshTokenResponseDto,
+} from './dto/refresh-token.dto';
 
 @Injectable()
 export class AuthService {
@@ -44,5 +48,11 @@ export class AuthService {
 
   async verify(payload: VerifyRequestDto): Promise<VerifyResponseDto> {
     return httpCatchErrorOrDone(this.authServiceClient.verify(payload));
+  }
+
+  async refreshToken(
+    payload: RefreshTokenRequestDto,
+  ): Promise<RefreshTokenResponseDto> {
+    return httpCatchErrorOrDone(this.authServiceClient.refreshToken(payload));
   }
 }
