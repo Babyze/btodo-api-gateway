@@ -8,6 +8,7 @@ import { ClientGrpc } from '@nestjs/microservices';
 import { httpCatchErrorOrDone } from 'btodo-utils';
 import { FindAccountRequestDto } from './dto/find-account.dto';
 import { SignUpRequestDto, SignUpResponseDto } from './dto/sign-up.dto';
+import { SignInRequestDto } from './dto/sign-in.dto';
 
 @Injectable()
 export class AuthService {
@@ -34,5 +35,9 @@ export class AuthService {
 
   async signUp(payload: SignUpRequestDto): Promise<SignUpResponseDto> {
     return httpCatchErrorOrDone(this.authServiceClient.signUp(payload));
+  }
+
+  async signIn(payload: SignInRequestDto): Promise<SignUpResponseDto> {
+    return httpCatchErrorOrDone(this.authServiceClient.signIn(payload));
   }
 }
