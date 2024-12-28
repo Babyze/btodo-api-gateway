@@ -1,8 +1,8 @@
-import { SignUpRequest, SignUpResponse } from '@app/common/pb/auth.pb';
+import { SignInRequest, SignInResponse } from '@app/common/pb/auth.pb';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsStrongPassword } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
-export class SignUpRequestDto implements SignUpRequest {
+export class SignInRequestDto implements SignInRequest {
   @ApiProperty({
     description: 'Email address',
     type: 'string',
@@ -16,11 +16,11 @@ export class SignUpRequestDto implements SignUpRequest {
     type: 'string',
     required: true,
   })
-  @IsStrongPassword()
+  @IsString()
   password: string;
 }
 
-export class SignUpResponseDto implements SignUpResponse {
+export class SignInResponseDto implements SignInResponse {
   @ApiProperty({
     description: 'Access token',
     type: 'string',
