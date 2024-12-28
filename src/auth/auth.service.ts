@@ -7,8 +7,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { httpCatchErrorOrDone } from 'btodo-utils';
 import { FindAccountRequestDto } from './dto/find-account.dto';
-import { SignUpRequestDto, SignUpResponseDto } from './dto/sign-up.dto';
 import { SignInRequestDto } from './dto/sign-in.dto';
+import { SignUpRequestDto, SignUpResponseDto } from './dto/sign-up.dto';
+import { VerifyRequestDto, VerifyResponseDto } from './dto/verify.dto';
 
 @Injectable()
 export class AuthService {
@@ -39,5 +40,9 @@ export class AuthService {
 
   async signIn(payload: SignInRequestDto): Promise<SignUpResponseDto> {
     return httpCatchErrorOrDone(this.authServiceClient.signIn(payload));
+  }
+
+  async verify(payload: VerifyRequestDto): Promise<VerifyResponseDto> {
+    return httpCatchErrorOrDone(this.authServiceClient.verify(payload));
   }
 }
