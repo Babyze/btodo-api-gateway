@@ -6,6 +6,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { AuthModule } from './auth/auth.module';
 import { GrpcDataTransformInterceptor } from './common/interceptors/grpc-data-transform-interceptor.interceptor';
 import { ClientMicroserviceModule } from './common/module/client-microservice-module.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -20,6 +21,9 @@ import { ClientMicroserviceModule } from './common/module/client-microservice-mo
         GRPC_AUTH_HOST: Joi.string().required(),
         GRPC_AUTH_PORT: Joi.number().required(),
         GRPC_AUTH_PROTO_PATH: Joi.string().required(),
+        GRPC_TODO_HOST: Joi.string().required(),
+        GRPC_TODO_PORT: Joi.number().required(),
+        GRPC_TODO_PROTO_PATH: Joi.string().required(),
       }),
     }),
     LoggerModule.forRoot({
@@ -31,6 +35,7 @@ import { ClientMicroserviceModule } from './common/module/client-microservice-mo
     }),
     ClientMicroserviceModule,
     AuthModule,
+    TodoModule,
   ],
   controllers: [],
   providers: [

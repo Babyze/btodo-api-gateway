@@ -6,4 +6,5 @@ export class VerifyRequestDto implements VerifyRequest {
 
 export class VerifyResponseDto implements VerifyResponse {
   isValid: boolean;
+  accountID?: number;
 }

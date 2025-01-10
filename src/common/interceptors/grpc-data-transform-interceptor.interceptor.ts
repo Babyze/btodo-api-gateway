@@ -4,7 +4,6 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { transformgRPCToData } from 'btodo-utils';
 import { map, Observable } from 'rxjs';
 import { BaseResponse } from '../dto/response.dto';
 
@@ -26,7 +25,7 @@ export class GrpcDataTransformInterceptor implements NestInterceptor {
 
     return {
       statusCode: response.statusCode,
-      message: transformgRPCToData(data),
+      message: data,
     };
   }
 }
