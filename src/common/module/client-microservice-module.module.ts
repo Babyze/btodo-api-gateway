@@ -26,6 +26,9 @@ import { BTODO_TODO_PACKAGE_NAME, TODO_SERVICE_NAME } from '../pb/todo.pb';
             url: `${configService.get('GRPC_ACCOUNT_HOST')}:${configService.get('GRPC_ACCOUNT_PORT')}`,
             package: BTODO_ACCOUNT_PACKAGE_NAME,
             protoPath: [configService.get('GRPC_ACCOUNT_PROTO_PATH')],
+            loader: {
+              arrays: true,
+            },
           },
         }),
       },
@@ -40,6 +43,9 @@ import { BTODO_TODO_PACKAGE_NAME, TODO_SERVICE_NAME } from '../pb/todo.pb';
             url: `${configService.get('GRPC_AUTH_HOST')}:${configService.get('GRPC_AUTH_PORT')}`,
             package: BTODO_AUTH_PACKAGE_NAME,
             protoPath: [configService.get('GRPC_AUTH_PROTO_PATH')],
+            loader: {
+              arrays: true,
+            },
           },
         }),
       },
@@ -54,6 +60,9 @@ import { BTODO_TODO_PACKAGE_NAME, TODO_SERVICE_NAME } from '../pb/todo.pb';
             url: `${configService.get('GRPC_TODO_HOST')}:${configService.get('GRPC_TODO_PORT')}`,
             package: BTODO_TODO_PACKAGE_NAME,
             protoPath: [configService.get('GRPC_TODO_PROTO_PATH')],
+            loader: {
+              arrays: true,
+            },
           },
         }),
       },
